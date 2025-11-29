@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Outfit Helper</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-soft: #111827;
+      --card: #1f2937;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #374151;
+      --danger: #f97373;
+      --good: #4ade80;
+      --warning: #facc15;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1e293b, #020617);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    p {
+      margin-bottom: 0.4rem;
+    }
+
+    .hero {
+      background: linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0.12),
+        rgba(56, 189, 248, 0.05)
+      );
+      border-radius: 1rem;
+      padding: 1.5rem 1.3rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "❄️";
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 2.2rem;
+      opacity: 0.3;
+    }
+
+    .hero-title {
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      max-width: 30rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.88);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      white-space: nowrap;
+    }
+
+    .badge span {
+      font-size: 0.9rem;
+    }
+
+    .section {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 0.9rem;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 1rem 0.9rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .section-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .three-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+    }
+
+    @media (min-width: 640px) {
+      .three-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      padding: 0.75rem 0.7rem;
+      font-size: 0.9rem;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 0.12rem 0.45rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+
+    .temp-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.3rem 0.55rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      margin-bottom: 0.3rem;
+    }
+
+    .temp-label {
+      font-weight: 600;
+    }
+
+    .temp-pill {
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: #1e293b;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .temp-tip {
+      color: var(--muted);
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    @media (min-width: 640px) {
+      .checklist-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .checklist-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .small {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .per-kid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    @media (min-width: 768px) {
+      .per-kid-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    details {
+      background: var(--card);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      padding: 0.7rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .summary-title {
+      font-weight: 600;
+    }
+
+    .summary-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .summary-tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    details[open] {
+      border-color: var(--accent);
+    }
+
+    details[open] summary .summary-tag {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .details-body {
+      margin-top: 0.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.5rem;
+    }
+
+    .miniheading {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-note span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .traffic {
+      display: flex;
+      gap: 0.25rem;
+      margin-top: 0.35rem;
+      font-size: 0.75rem;
+    }
+
+    .traffic span {
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #020617;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.23rem;
+    }
+
+    .dot {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .dot.good {
+      background: var(--good);
+    }
+
+    .dot.warning {
+      background: var(--warning);
+    }
+
+    .dot.danger {
+      background: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO -->
+  <header class="hero">
+    <h1 class="hero-title">Winter Outfit Helper</h1>
+    <p class="hero-sub">
+      A simple guide so you never have to wonder <em>"how do I dress them for winter?"</em>
+      again. Just follow the 3-layer formula + checklists below.
+    </p>
+    <div class="hero-badges">
+      <div class="badge"><span>🧥</span> 3-layer formula</div>
+      <div class="badge"><span>👨‍👩‍👧‍👦</span> Built for 5 kids</div>
+      <div class="badge"><span>🛒</span> Shopping-friendly lists</div>
+    </div>
+  </header>
+
+  <!-- LAYERING FORMULA -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Step 1: The 3-Layer Rule</h2>
+      <div class="section-tagline">Every winter outfit = Base + Middle + Outer</div>
+    </div>
+    <div class="three-grid">
+      <div class="card">
+        <div class="card-title">
+          <h3>1. Base Layer</h3>
+          <span class="pill">Heat Trap</span>
+        </div>
+        <p class="small">Thin but warm, right on the skin.</p>
+        <ul>
+          <li>Thermal long-sleeve tops</li>
+          <li>Thermal leggings</li>
+          <li>Fleece-lined leggings (for extra cozy days)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <h3>2. Middle Layer</h3>
+          <span class="pill">Insulation</span>
+        </div>
+        <p class="small">The "cozy" layer that holds warmth in.</p>
+        <ul>
+          <li>Hoodies</li>
+          <li>Fleece zip-ups</li>
+          <li>Sweaters</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <h3>3. Outer Layer</h3>
+          <span class="pill">Weather Shield</span>
+        </div>
+        <p class="small">Blocks wind, snow, rain.</p>
+        <ul>
+          <li>Puffer coat or parka</li>
+          <li>Snow pants (very cold / snow)</li>
+          <li>Optional: lightweight rain/shell jacket</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:0.7rem;">
+      <p class="small">
+        Then add: hat + neck gaiter + waterproof gloves + warm socks + winter boots.
+      </p>
+    </div>
+  </section>
+
+  <!-- TEMPERATURE GUIDE -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Step 2: What to Wear by Temperature</h2>
+      <div class="section-tagline">Use this like a quick traffic light for the day.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <h3>Quick Temperature Guide</h3>
+      </div>
+
+      <div class="traffic">
+        <span><span class="dot good"></span> Mild</span>
+        <span><span class="dot warning"></span> Cold</span>
+        <span><span class="dot danger"></span> Very cold</span>
+      </div>
+
+      <div style="margin-top:0.5rem;">
+        <div class="temp-row">
+          <span class="temp-label">40–50°F</span>
+          <span class="temp-pill">Base + Light Middle + Jacket</span>
+          <span class="temp-tip">Cap + regular socks fine.</span>
+        </div>
+        <div class="temp-row">
+          <span class="temp-label">30–40°F</span>
+          <span class="temp-pill">Base + Warm Middle + Puffer</span>
+          <span class="temp-tip">Hat, neck gaiter, gloves, warm socks.</span>
+        </div>
+        <div class="temp-row">
+          <span class="temp-label">20–30°F</span>
+          <span class="temp-pill">Base + Cozy Middle + Puffer + Snow Pants</span>
+          <span class="temp-tip">Treat as “real winter”; wool socks & boots.</span>
+        </div>
+        <div class="temp-row">
+          <span class="temp-label">&lt; 20°F</span>
+          <span class="temp-pill">Double Base (or fleece PJs) + Middle + Full Snow Gear</span>
+          <span class="temp-tip">Cover everything; no cotton socks.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHARED SHOPPING CHECKLIST -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Step 3: Shopping Checklist (Per Kid)</h2>
+      <div class="section-tagline">Buy once, mix & match all winter.</div>
+    </div>
+
+    <div class="checklist-grid">
+      <div class="card">
+        <h3 class="checklist-label">Base Layers</h3>
+        <ul>
+          <li>3–4 thermal long-sleeve tops</li>
+          <li>3–4 thermal leggings / long johns</li>
+          <li>2 fleece pajamas (can double as extra base layer)</li>
+        </ul>
+
+        <h3 class="checklist-label">Middle Layers</h3>
+        <ul>
+          <li>2 hoodies</li>
+          <li>2 fleece zip-ups</li>
+          <li>1 warm sweater (optional but nice)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="checklist-label">Outerwear</h3>
+        <ul>
+          <li>1 puffer coat or parka</li>
+          <li>1 pair of snow pants</li>
+          <li>1 lightweight rain/shell jacket (optional)</li>
+        </ul>
+
+        <h3 class="checklist-label">Accessories</h3>
+        <ul>
+          <li>2 hats (kids lose them)</li>
+          <li>2 neck gaiters (easier than scarves)</li>
+          <li>2 pairs gloves/mittens
+            <ul>
+              <li>1 waterproof pair</li>
+              <li>1 warm backup pair</li>
+            </ul>
+          </li>
+          <li>4 pairs wool or wool-blend socks</li>
+          <li>1 pair winter boots (waterproof)</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="small" style="margin-top:0.4rem;">
+      If each child has these, dressing them becomes: 
+      <span class="highlight">“Base + hoodie + coat + hat + gloves + boots”</span> with snow pants on the coldest days.
+    </p>
+  </section>
+
+  <!-- PER-KID LISTS -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Step 4: Exact Lists for Our Kids</h2>
+      <div class="section-tagline">Pre-planned for baby, littles, and big kids.</div>
+    </div>
+
+    <div class="per-kid-layout">
+      <!-- BABY -->
+      <details open>
+        <summary>
+          <div class="summary-main">
+            <span class="summary-title">Kid A – Baby (24mo / 2T)</span>
+            <span class="summary-sub">Think cozy + easy diaper changes.</span>
+          </div>
+          <span class="summary-tag">Tap to open / close</span>
+        </summary>
+        <div class="details-body">
+          <div class="miniheading">Base Layers</div>
+          <ul>
+            <li>3 thermal tops + 3 thermal bottoms (toddler sets)</li>
+            <li>3 fleece-lined pants/leggings</li>
+            <li>2 fleece footie pajamas</li>
+          </ul>
+
+          <div class="miniheading">Middle Layers</div>
+          <ul>
+            <li>2 fleece zip-up hoodies</li>
+            <li>1 thicker sweater</li>
+          </ul>
+
+          <div class="miniheading">Outerwear</div>
+          <ul>
+            <li>1 toddler puffer jacket</li>
+            <li>1 toddler snowsuit <em>or</em> snow-pant style bibs</li>
+          </ul>
+
+          <div class="miniheading">Accessories</div>
+          <ul>
+            <li>2 toddler hats (covering ears)</li>
+            <li>2 toddler neck gaiters</li>
+            <li>1–2 pairs waterproof mittens</li>
+            <li>4 pairs warm socks</li>
+            <li>1 pair lightweight, waterproof toddler winter boots</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- LITTLES 6/7 -->
+      <details>
+        <summary>
+          <div class="summary-main">
+            <span class="summary-title">Kids B & C – Littles (Size 6/7)</span>
+            <span class="summary-sub">Buy two of the same set to keep it simple.</span>
+          </div>
+          <span class="summary-tag">Tap to open / close</span>
+        </summary>
+        <div class="details-body">
+          <div class="miniheading">Base Layers (each child)</div>
+          <ul>
+            <li>4 thermal long-sleeve tops</li>
+            <li>4 thermal leggings / long johns</li>
+            <li>2 fleece pajamas</li>
+          </ul>
+
+          <div class="miniheading">Middle Layers (each child)</div>
+          <ul>
+            <li>2 hoodies</li>
+            <li>2 fleece zip-ups</li>
+            <li>1 cozy sweater</li>
+          </ul>
+
+          <div class="miniheading">Outerwear (each child)</div>
+          <ul>
+            <li>1 puffer coat</li>
+            <li>1 pair snow pants</li>
+            <li>Optional: 1 thin rain/shell jacket</li>
+          </ul>
+
+          <div class="miniheading">Accessories (each child)</div>
+          <ul>
+            <li>2 hats</li>
+            <li>2 neck gaiters</li>
+            <li>2 pairs gloves/mittens (1 waterproof, 1 backup)</li>
+            <li>4 pairs wool or wool-blend socks</li>
+            <li>1 pair waterproof winter boots</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- BIGS 12/14 -->
+      <details>
+        <summary>
+          <div class="summary-main">
+            <span class="summary-title">Kids D & E – Big Kids (Size 12/14)</span>
+            <span class="summary-sub">Older kids but same easy formula.</span>
+          </div>
+          <span class="summary-tag">Tap to open / close</span>
+        </summary>
+        <div class="details-body">
+          <div class="miniheading">Base Layers (each child)</div>
+          <ul>
+            <li>4 thermal long-sleeve tops</li>
+            <li>4 thermal leggings / base-layer bottoms</li>
+            <li>2 fleece pajamas or warm joggers</li>
+          </ul>
+
+          <div class="miniheading">Middle Layers (each child)</div>
+          <ul>
+            <li>2 hoodies (everyday wear)</li>
+            <li>2 fleece zip-ups</li>
+            <li>1 sweater or quarter-zip</li>
+          </ul>
+
+          <div class="miniheading">Outerwear (each child)</div>
+          <ul>
+            <li>1 good puffer or parka</li>
+            <li>1 pair snow pants</li>
+          </ul>
+
+          <div class="miniheading">Accessories (each child)</div>
+          <ul>
+            <li>2 hats</li>
+            <li>2 neck gaiters</li>
+            <li>2 pairs gloves</li>
+            <li>4 pairs wool / wool-blend socks</li>
+            <li>1 pair winter boots (waterproof, good tread)</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <p class="footer-note">
+    When in doubt, remember: <span>Base + Middle + Outer</span> and then
+    hat, gloves, socks, boots. If they’re a little too warm, you can always peel a layer off.
+  </p>
+</body>
+</html>
