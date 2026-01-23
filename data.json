@@ -1,0 +1,106 @@
+{
+  "settings": {
+    "timezone": "America/Chicago",
+    "timeFormat": "12h",
+    "dateFormat": "MMM d",
+    "slideSeconds": 12
+  },
+  "teams": [
+    {
+      "id": "tigers",
+      "name": "Detroit Tigers",
+      "logo": "logos/tigers.png",
+      "accent": "#0C2340",
+      "lastFinal": {
+        "date": "2026-01-18T00:00:00Z",
+        "line": "DET 5 — CLE 3",
+        "note": "Final"
+      },
+      "nextGames": [
+        { "dt": "2026-02-23T01:10:00Z", "opp": "Guardians", "homeAway": "vs" },
+        { "dt": "2026-02-24T01:10:00Z", "opp": "Guardians", "homeAway": "vs" },
+        { "dt": "2026-02-26T01:10:00Z", "opp": "Royals", "homeAway": "@" }
+      ]
+    },
+    {
+      "id": "lions",
+      "name": "Detroit Lions",
+      "logo": "logos/lions.png",
+      "accent": "#0076B6",
+      "lastFinal": {
+        "date": "2026-01-11T01:15:00Z",
+        "line": "DET 24 — GB 17",
+        "note": "Final"
+      },
+      "nextGames": [
+        { "dt": "2026-09-13T18:00:00Z", "opp": "Vikings", "homeAway": "vs" },
+        { "dt": "2026-09-20T18:00:00Z", "opp": "Bears", "homeAway": "@" },
+        { "dt": "2026-09-27T18:00:00Z", "opp": "Packers", "homeAway": "vs" }
+      ]
+    },
+    {
+      "id": "redwings",
+      "name": "Detroit Red Wings",
+      "logo": "logos/redwings.png",
+      "accent": "#CE1126",
+      "lastFinal": {
+        "date": "2026-01-22T01:00:00Z",
+        "line": "DET 2 — NYR 4",
+        "note": "Final"
+      },
+      "nextGames": [
+        { "dt": "2026-01-25T01:00:00Z", "opp": "Blackhawks", "homeAway": "@" },
+        { "dt": "2026-01-27T01:00:00Z", "opp": "Stars", "homeAway": "vs" },
+        { "dt": "2026-01-30T01:00:00Z", "opp": "Blues", "homeAway": "@" }
+      ]
+    },
+    {
+      "id": "notredamefb",
+      "name": "Notre Dame Football",
+      "logo": "logos/notredame.png",
+      "accent": "#0C2340",
+      "lastFinal": {
+        "date": "2026-01-02T01:00:00Z",
+        "line": "ND 31 — USC 24",
+        "note": "Final"
+      },
+      "nextGames": [
+        { "dt": "2026-08-30T23:30:00Z", "opp": "Texas A&M", "homeAway": "@" },
+        { "dt": "2026-09-06T23:30:00Z", "opp": "Purdue", "homeAway": "vs" },
+        { "dt": "2026-09-13T23:30:00Z", "opp": "Michigan", "homeAway": "@" }
+      ]
+    },
+    {
+      "id": "indianafb",
+      "name": "Indiana Football",
+      "logo": "logos/indiana.png",
+      "accent": "#990000",
+      "lastFinal": {
+        "date": "2026-01-01T01:00:00Z",
+        "line": "IU 21 — PUR 28",
+        "note": "Final"
+      },
+      "nextGames": [
+        { "dt": "2026-08-29T23:00:00Z", "opp": "Illinois", "homeAway": "vs" },
+        { "dt": "2026-09-05T23:00:00Z", "opp": "Ohio State", "homeAway": "@" },
+        { "dt": "2026-09-12T23:00:00Z", "opp": "Maryland", "homeAway": "vs" }
+      ]
+    },
+    {
+      "id": "indianabb",
+      "name": "Indiana Basketball",
+      "logo": "logos/indiana.png",
+      "accent": "#990000",
+      "lastFinal": {
+        "date": "2026-01-21T01:00:00Z",
+        "line": "IU 74 — MSU 70",
+        "note": "Final"
+      },
+      "nextGames": [
+        { "dt": "2026-01-25T02:00:00Z", "opp": "Purdue", "homeAway": "@" },
+        { "dt": "2026-01-29T02:00:00Z", "opp": "Michigan", "homeAway": "vs" },
+        { "dt": "2026-02-02T02:00:00Z", "opp": "Wisconsin", "homeAway": "@" }
+      ]
+    }
+  ]
+}
